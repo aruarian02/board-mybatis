@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.demo.book.mapper.BoardMapper">
+
+    <insert id="insertBoard">
+        INSERT INTO bootex.board (title, content, member_email, mod_date)
+        VALUES( #{title}, #{content}, #{memberEmail}, NOW() )
+    </insert>
+
+    <select id="getBoardList" resultType="com.demo.book.data.vo.BoardVO">
+        SELECT b.*, COUNT(r.rno) AS reply_cnt
+        FROM bootex.board AS b
+        LEFT OUTER JOIN bootex.reply AS r
+        ON b.bno = r.board_bno
+        GROUP BY b.bno;
+    </select>
+
+    <select id="getBoardByBno" resultType="com.demo.book.data.vo.BoardVO">
+        SELECT b.*, COUNT(r.rno) AS reply_cnt
+        FROM bootex.board AS b
+        JOIN bootex.reply AS r
+        ON b.bno = r.board_bno
+        WHERE b.bno = #{bno}
+        GROUP BY b.bno;
+    </select>
+
+    <sql id="criteria">
+        <trim prefix="(" suffix=") AND " prefixOverrides="OR">
+            <foreach item="type" collection="c.typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'T'">
+                            b.title LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'C'">
+                            b.content LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="type == 'W'">
+                            b.member_email LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+
+    <select id="getBoardListWithPaging" resultType="com.demo.book.data.vo.BoardVO">
+        SELECT
+            b.title
+            , b.content
+            , b.member_email
+            , COUNT(r.rno) AS reply_cnt
+        FROM
+            bootex.board AS b
+        LEFT OUTER JOIN
+            bootex.reply AS r
+        ON
+            b.bno = r.board_bno
+        WHERE
+
+            <include refid="criteria" />
+
+        <![CDATA[
+            GROUP BY b.bno
+            LIMIT #{c.amount} OFFSET ${c.pageNum * 1 * c.amount};
+        ]]>
+    </select>
+
+</mapper>

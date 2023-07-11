@@ -1,0 +1,25 @@
+CREATE TABLE member(
+	email		VARCHAR(50) PRIMARY KEY,
+	password	VARCHAR(150) NOT NULL,
+	name		VARCHAR(50) NOT NULL,
+	reg_date	DATETIME DEFAULT NOW(),
+	mod_date 	DATETIME NOT NULL
+)
+
+CREATE TABLE board(
+	bno				INT PRIMARY KEY AUTO_INCREMENT,
+	title			VARCHAR(150) NOT NULL,
+	content			VARCHAR(1500) NOT NULL,
+	member_email	VARCHAR(50) NOT NULL,
+	reg_date		DATETIME DEFAULT NOW(),
+	mod_date 		DATETIME NOT NULL
+)
+
+CREATE TABLE reply(
+	rno				INT PRIMARY KEY AUTO_INCREMENT,
+	content			VARCHAR(1000) NOT NULL,
+	member_email	VARCHAR(50) NOT NULL,
+	board_bno		INT NOT NULL,
+	reg_date		DATETIME DEFAULT NOW(),
+	mod_date 		DATETIME NOT NULL
+)
