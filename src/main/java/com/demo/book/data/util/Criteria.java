@@ -1,8 +1,13 @@
 package com.demo.book.data.util;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-
+@Getter
+@Setter
+@ToString
 public class Criteria {
     private int pageNum;
     private int amount;

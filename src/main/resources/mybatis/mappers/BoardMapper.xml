@@ -25,18 +25,18 @@
     </select>
 
     <sql id="criteria">
-        <trim prefix="(" suffix=") AND " prefixOverrides="OR">
+        <trim prefix="(" suffix=")" prefixOverrides="OR">
             <foreach item="type" collection="c.typeArr">
                 <trim prefix="OR">
                     <choose>
-                        <when test="type.equals('T')">
-                            b.title LIKE CONCAT('%', #{keyword}, '%')
+                        <when test="type.equals('T'.toString())">
+                            b.title LIKE CONCAT('%', #{c.keyword}, '%')
                         </when>
-                        <when test="type.equals('C')">
-                            b.content LIKE CONCAT('%', #{keyword}, '%')
+                        <when test="type.equals('C'.toString())">
+                            b.content LIKE CONCAT('%', #{c.keyword}, '%')
                         </when>
-                        <when test="type.equals('W')">
-                            b.member_email LIKE CONCAT('%', #{keyword}, '%')
+                        <when test="type.equals('W'.toString())">
+                            b.member_email LIKE CONCAT('%', #{c.keyword}, '%')
                         </when>
                     </choose>
                 </trim>
