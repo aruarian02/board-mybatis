@@ -63,4 +63,20 @@
         LIMIT #{c.amount} OFFSET ${c.pageNum * 1 * c.amount};
     </select>
 
+    <update id="updateBoard">
+        UPDATE
+            board AS b
+        SET
+            b.title = #{title}
+            , b.content = #{content}
+            , b.mod_date = NOW()
+        WHERE
+            b.bno = #{bno}
+    </update>
+
+    <delete id="removeBoard">
+        DELETE FROM board
+        WHERE board.bno = #{bno}
+    </delete>
+
 </mapper>

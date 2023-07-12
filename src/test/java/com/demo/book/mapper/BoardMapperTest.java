@@ -60,4 +60,18 @@ class BoardMapperTest {
         List<BoardVO> boardListWithPaging = boardMapper.getBoardListWithPaging(criteria);
         boardListWithPaging.forEach(System.out::println);
     }
+
+    @Test
+    public void updateBoard() {
+        BoardVO boardByBno = boardMapper.getBoardByBno(100L);
+        boardByBno.setTitle("Update title!");
+        boardByBno.setContent("Update content!!!");
+
+        boardMapper.updateBoard(boardByBno);
+    }
+
+    @Test
+    public void removeBoard() {
+        boardMapper.removeBoard(101L);
+    }
 }

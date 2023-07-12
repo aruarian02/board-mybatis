@@ -13,4 +13,12 @@ public class BoardVO {
     private LocalDateTime regDate;
     private LocalDateTime modDate;
     private int replyCnt;
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

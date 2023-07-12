@@ -11,6 +11,8 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
     void insertBoard(Board board);
+    void updateBoard(BoardVO boardVO);
+    void removeBoard(@Param("bno") Long bno);
     List<BoardVO> getBoardList();
     BoardVO getBoardByBno(Long bno);
     List<BoardVO> getBoardListWithPaging(@Param("c") Criteria criteria);
