@@ -1,6 +1,5 @@
 package com.demo.book.mapper;
 
-import com.demo.book.data.entity.Board;
 import com.demo.book.data.util.Criteria;
 import com.demo.book.data.vo.BoardVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,7 +9,7 @@ import java.util.List;
 
 @Mapper
 public interface BoardMapper {
-    void insertBoard(Board board);
+    void insertBoard(BoardVO boardVO);
     void updateBoard(BoardVO boardVO);
     void removeBoard(@Param("bno") Long bno);
     List<BoardVO> getBoardList();
