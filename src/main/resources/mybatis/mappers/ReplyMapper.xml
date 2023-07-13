@@ -7,4 +7,37 @@
         VALUES( #{content}, #{memberEmail}, #{boardBno}, NOW() )
     </insert>
 
+    <delete id="deleteByRno">
+        DELETE FROM bootex.reply
+        WHERE reply.rno = #{rno};
+    </delete>
+
+    <select id="getReply">
+        SELECT * FROM bootex.reply AS r
+        WHERE r.rno = #{rno};
+    </select>
+
+    <select id="getList">
+        SELECT
+            r.*
+        FROM
+            bootex.reply AS r
+        JOIN
+            bootex.board AS b
+        ON
+            r.board_bno = b.bno
+        WHERE
+            r.board_bno = 23;
+    </select>
+
+    <update id="update">
+        UPDATE
+            bootex.reply
+        SET
+            content = #{content}
+            , mod_date = NOW()
+        WHERE
+            board_bno = #{boardBno};
+    </update>
+
 </mapper>

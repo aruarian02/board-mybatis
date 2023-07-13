@@ -32,14 +32,6 @@ class BoardMapperTest {
 //
 //            boardMapper.insertBoard(board);
 //        });
-
-        Board board = Board.builder()
-                .title("Test title..." + 999)
-                .content("Test content..." + 999)
-                .memberEmail("test999@naver.com")
-                .build();
-
-        boardMapper.insertBoard(board);
     }
 
     @Test
